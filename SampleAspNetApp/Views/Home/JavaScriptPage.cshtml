@@ -1,0 +1,90 @@
+﻿<h2>JavaScript Page</h2>
+
+<form id="jsForm">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-block card-inverse card-primary">
+                    <h4 class="card-title">Get Kids Started!</h4>
+                </div>
+                <div class="card-block">
+                    <div class="form-group row">
+                        <label class="col-xs-3 col-form-label">Platform</label>
+                        <div class="col-xs-9">
+                            <input id="platformOptions" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-xs-3 col-form-label">Model / Set</label>
+                        <div class="col-xs-9">
+                            <input id="modelOptions" />
+                        </div>
+                    </div>
+
+                    <div id="isSetComplete" style="display:none;">
+                        <div class="alert alert-success">
+                            <span id="setName"></span> is a complete-set platform, meaning that no extra purchases are necessary to get started.
+                        </div>
+                    </div>
+
+                    <input type="button" class="btn btn-success" value="Start!" onclick="hitIt();"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#platformOptions").width(220).kendoDropDownList({            
+            dataSource: [
+                "",
+                "Lego Mindstorms",
+                "Snap Circuits",
+                "Rasberry Pi",
+                "Arduino"
+            ],
+            change: platformChanged
+        });
+
+        $("#modelOptions").width(220).kendoDropDownList({            
+            dataSource: [
+                "Choose Platform first"              
+            ]
+        });
+    });
+
+    function platformChanged(e) {        
+        var platOptDropDown = $("#platformOptions").data("kendoDropDownList");
+        var value = platOptDropDown.value();
+
+        var models = [];
+        switch (value) {
+            case "Lego Mindstorms":
+                models = ["Original", "NXT", "EV3"];
+                $("#setName").html(value);
+                $("#isSetComplete").show();
+                break;
+            case "Snap Circuits":
+                models = ["Standard", "Jr.", "Green", "XP", "Light", "Gaming"];
+                $("#setName").html(value);
+                $("#isSetComplete").show();
+                break;
+            case "Rasberry Pi":
+                models = ["v1", "v2", "Zero"];
+                $("#isSetComplete").hide();
+                break;
+            case "Arduino":
+                models = ["Uno", "Leonardo", "101", "Robot"];
+                $("#isSetComplete").hide();
+                break;
+        }
+        var modelDdl = $("#modelOptions").data("kendoDropDownList");
+        modelDdl.setDataSource(models);
+    }
+
+    function hitIt() {
+        alert("You've taken your first step....")
+    }
+</script>
