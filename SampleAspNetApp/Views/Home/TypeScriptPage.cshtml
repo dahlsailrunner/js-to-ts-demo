@@ -1,2 +1,49 @@
 ﻿<h2>TypeScript Page</h2>
+<!--
+  * Kendo Drop-down for "Platforms"
+  * When selected platform is changed:
+        > options in "Models" drop down is updated with model choices for that platform
+        > if platform is self-contained, an alert indicating that it's a complete set is shown (it's hidden if the platform is not self-contained)
+  * clicking the button will show an alert with the selected values
+-->
+<form id="jsForm">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-block card-inverse card-primary">
+                    <h4 class="card-title">Get Kids Started!</h4>
+                </div>
+                <div class="card-block">
+                    <div class="form-group row">
+                        <label class="col-xs-3 col-form-label">Platform</label>
+                        <div class="col-xs-9">
+                            <input id="platformOptions"
+                                   data-role="dropdownlist"
+                                   data-bind="source: platforms, value: selectedPlatform, events: {change: platformChanged}" />
+                        </div>
+                    </div>
 
+                    <div class="form-group row">
+                        <label class="col-xs-3 col-form-label">Model / Set</label>
+                        <div class="col-xs-9">
+                            <input id="modelOptions" data-role="dropdownlist"
+                                   data-bind="source: models, value: selectedModel" />
+                        </div>
+                    </div>
+
+                    <div id="isSetComplete" data-bind="visible: isComplete">
+                        <!-- THIS WILL CHANGE -->
+                        <div class="alert alert-success">
+                            <span id="platformName" data-bind="html: selectedPlatform"></span> is a complete-set platform, meaning that no extra purchases are necessary to get started.
+                        </div>
+                    </div>
+
+                    <input type="button" class="btn btn-success" value="Start!"
+                           data-bind="click: hitIt" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="~/Scripts/viewModel.js"></script>

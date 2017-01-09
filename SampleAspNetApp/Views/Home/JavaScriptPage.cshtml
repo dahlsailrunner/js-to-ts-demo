@@ -1,5 +1,11 @@
 ﻿<h2>JavaScript Page</h2>
-
+<!--
+  * Kendo Drop-down for "Platforms"
+  * When selected platform is changed: 
+        > options in "Models" drop down is updated with model choices for that platform
+        > if platform is self-contained, an alert indicating that it's a complete set is shown (it's hidden if the platform is not self-contained)
+  * clicking the button will show an alert with the selected values  
+-->
 <form id="jsForm">
     <div class="row">
         <div class="col-md-9">
@@ -11,24 +17,24 @@
                     <div class="form-group row">
                         <label class="col-xs-3 col-form-label">Platform</label>
                         <div class="col-xs-9">
-                            <input id="platformOptions" />
+                            <input id="platformOptions" /><!-- THIS WILL CHANGE -->
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-xs-3 col-form-label">Model / Set</label>
                         <div class="col-xs-9">
-                            <input id="modelOptions" />
+                            <input id="modelOptions" /><!-- THIS WILL CHANGE -->
                         </div>
                     </div>
 
-                    <div id="isSetComplete" style="display:none;">
+                    <div id="isSetComplete" style="display:none;"><!-- THIS WILL CHANGE -->
                         <div class="alert alert-success">
-                            <span id="setName"></span> is a complete-set platform, meaning that no extra purchases are necessary to get started.
+                            <span id="platformName"></span><!-- THIS WILL CHANGE --> is a complete-set platform, meaning that no extra purchases are necessary to get started.
                         </div>
                     </div>
 
-                    <input type="button" class="btn btn-success" value="Start!" onclick="hitIt();"/>
+                    <input type="button" class="btn btn-success" value="Start!" onclick="hitIt();"/><!-- THIS WILL CHANGE -->
                 </div>
             </div>
         </div>
@@ -63,12 +69,12 @@
         switch (value) {
             case "Lego Mindstorms":
                 models = ["Original", "NXT", "EV3"];
-                $("#setName").html(value);
+                $("#platformName").html(value);
                 $("#isSetComplete").show();
                 break;
             case "Snap Circuits":
                 models = ["Standard", "Jr.", "Green", "XP", "Light", "Gaming"];
-                $("#setName").html(value);
+                $("#platformName").html(value);
                 $("#isSetComplete").show();
                 break;
             case "Rasberry Pi":
@@ -85,6 +91,12 @@
     }
 
     function hitIt() {
-        alert("You've taken your first step....")
+        var platOptDropDown = $("#platformOptions").data("kendoDropDownList");
+        var selectedPlat = platOptDropDown.value();
+
+        var modelDdl = $("#modelOptions").data("kendoDropDownList");
+        var modelValue = modelDdl.value();
+
+        alert("You have taken your first step with " + selectedPlat + " (" + modelValue + ")!");
     }
 </script>
